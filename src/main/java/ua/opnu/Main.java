@@ -14,9 +14,11 @@ public class Main {
      * icyHot(-1, 120) → true
      * icyHot(2, 120) → false
      */
+    private static final int LOW_TEMP = 0; // low temperature
+    private static final int HIGH_TEMP = 100; // high temperature
     public boolean icyHot(int temp1, int temp2) {
-        // TODO: write method body
-        return false;
+        return (temp2 < LOW_TEMP && temp1 > HIGH_TEMP)
+            || (temp1 < LOW_TEMP && temp2 > HIGH_TEMP);
     }
 
     /**
@@ -26,9 +28,11 @@ public class Main {
      * in1020(21, 12) → true
      * in1020(8, 99) → false
      */
+    private static final int LOW_BORDER = 10; // low border
+    private static final int HIGH_BORDER = 20; // high border
     public boolean in1020(int a, int b) {
-        // TODO: write method body
-        return false;
+        return (a >= LOW_BORDER && a <= HIGH_BORDER)
+            || (b >= LOW_BORDER && b <= HIGH_BORDER);
     }
 
     /**
@@ -39,9 +43,12 @@ public class Main {
      * hasTeen(20, 19, 10) → true
      * hasTeen(20, 10, 13) → true
      */
+    private static final int LOW_BORDER_TEEN = 13; // low border to be teen
+    private static final int HIGH_BORDER_TEEN = 19; // high border to be teen
     public boolean hasTeen(int a, int b, int c) {
-        // TODO: write method body
-        return false;
+        return (a >= LOW_BORDER_TEEN && a <= HIGH_BORDER_TEEN)
+            || (b >= LOW_BORDER_TEEN && b <= HIGH_BORDER_TEEN)
+            || (c >= LOW_BORDER_TEEN && c <= HIGH_BORDER_TEEN);
     }
 
     // ======== Boolean expressions ========
@@ -55,8 +62,7 @@ public class Main {
      * sleepIn(false, true) → true
      */
     public boolean sleepIn(boolean weekday, boolean vacation) {
-        // TODO: write method body
-        return false;
+        return !weekday || vacation;
     }
 
     /**
@@ -68,8 +74,7 @@ public class Main {
      * monkeyTrouble(true, false) → false
      */
     public boolean monkeyTrouble(boolean aSmile, boolean bSmile) {
-        // TODO: write method body
-        return false;
+        return aSmile == bSmile;
     }
 
     /**
@@ -80,9 +85,10 @@ public class Main {
      * posNeg(-1, 1, false) → true
      * posNeg(-4, -5, true) → true
      */
+    private static final int BORDER_SIGN = 0; // border to discover sign
     public boolean posNeg(int a, int b, boolean negative) {
-        // TODO: write method body
-        return false;
+        return ((a < BORDER_SIGN) ^ (b < BORDER_SIGN)) && !negative
+             || (a < BORDER_SIGN  && b < BORDER_SIGN   && negative);
     }
 
     // ======== Loops and Arrays ========
@@ -94,9 +100,15 @@ public class Main {
      * arrayCount9([1, 9, 9]) → 2
      * arrayCount9([1, 9, 9, 3, 9]) → 3
      */
+    private static final int FIND_NUM = 9; // number to find
     public int arrayCount9(int[] nums) {
-        // TODO: write method body
-        return 0;
+        int numberOfNine = 0; // initial number of 9's in the array
+        for(int i : nums) {
+            if (i == FIND_NUM) {
+                numberOfNine++;
+            }
+        }
+        return numberOfNine;
     }
 
     /**
@@ -107,8 +119,17 @@ public class Main {
      * arrayFront9([1, 2, 3, 4, 9]) → false
      * arrayFront9([1, 2, 3, 4, 5]) → false
      */
+    private static final int NUMBER_NUM = 4; // number of numbers
     public boolean arrayFront9(int[] nums) {
-        // TODO: write method body
+        int count = 0;
+        for (int num : nums) {
+            if (count++ == NUMBER_NUM) {
+                break;   // check only the first 4 elements
+            }
+            if (num == FIND_NUM) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -119,8 +140,18 @@ public class Main {
      * array123([1, 1, 2, 4, 1]) → false
      * array123([1, 1, 2, 1, 2, 3]) → true
      */
+    private static final int NUMBER_FIRST = 1;
+    private static final int NUMBER_SECOND = 2;
+    private static final int NUMBER_THIRD = 3;
     public boolean array123(int[] nums) {
-        // TODO: write method body
+        int len = nums.length;
+        for (int i = NUMBER_SECOND; i < len; i++) {
+            if (nums[i-NUMBER_SECOND] == NUMBER_FIRST
+               && nums[i-NUMBER_FIRST] == NUMBER_SECOND
+               && nums[i] == NUMBER_THIRD) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -134,8 +165,7 @@ public class Main {
      * helloName("X") → "Hello X!"
      */
     public String helloName(String name) {
-        // TODO: write method body
-        return null;
+        return "Hello " + name + "!";
     }
 
     /**
@@ -147,8 +177,15 @@ public class Main {
      * lastTwo("ab") → "ba"
      */
     public String lastTwo(String str) {
-        // TODO: write method body
-        return null;
+        if (str.length() < 2) {
+            return str; //if the length is less than 2, return the string as is
+        }
+        // take everything except the last two characters
+        String start = str.substring(0, str.length() - 2);
+        // the last two symbols are swapped
+        char secondLast = str.charAt(str.length() - 2);
+        char last = str.charAt(str.length() - 1);
+        return start + last + secondLast;
     }
 
     /**
@@ -159,9 +196,8 @@ public class Main {
      * middleTwo("Practice") → "ct"
      */
     public String middleTwo(String str) {
-        // TODO: write method body
-        return null;
+        int mid = str.length() / 2; // line midpoint index
+        return str.substring(mid - 1, mid + 1); // take characters mid-1 and mid
     }
-
 
 }
